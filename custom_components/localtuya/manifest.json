@@ -1,13 +1,13 @@
 {
   "domain": "localtuya",
   "name": "LocalTuya integration",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "documentation": "https://github.com/rospogrigio/localtuya/",
   "dependencies": [],
   "codeowners": [
     "@rospogrigio", "@postlund"
   ],
   "issue_tracker": "https://github.com/rospogrigio/localtuya/issues",
-  "requirements": [],
+  "requirements": ["pycryptodome~=3.9","tinytuya~=1.2.3"],
   "config_flow": true
 }
