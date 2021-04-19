@@ -1,5 +1,6 @@
 """Platform to locally control Tuya-based switch devices."""
 import logging
+import tinytuya
 from functools import partial
 
 import voluptuous as vol
@@ -68,6 +69,32 @@ class LocaltuyaSwitch(LocalTuyaEntity, SwitchEntity):
     async def async_turn_off(self, **kwargs):
         """Turn Tuya switch off."""
         await self._device.set_dp(False, self._dp_id)
+
+    async def update_energy(self):
+        tinytuya.set_debug(True)      # Use tinytuya.set_debug(True,False) for windows command prompt (no color)
+
+        d = tinytuya.OutletDevice('bf88154973e45bbb96aaci', '192.168.137.141', '932ccff3371cd2eb')
+        d.set_version(3.3)
+
+        print(" > Fetch Status < ")
+        data = d.status()
+        print(data)
+
+        d.heartbeat()
+        time.sleep(1)
+
+        print(" > Request Update < ")
+        result = d.updatedps([18,19,20])  # command 18
+        print(result)
+
+        print(" > Fetch Status Again < ")
+        data2 = d.status()
+        print(data2)
+
+        print("")
+        print("Before %r" % data)
+        print("After  %r" % data2)
+      
 
     def status_updated(self):
         """Device status was updated."""

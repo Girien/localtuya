@@ -26,6 +26,8 @@ from .const import (
     TUYA_DEVICE,
 )
 
+
+
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -190,6 +192,7 @@ class TuyaDevice(pytuya.TuyaListener, pytuya.ContextualLogger):
             self.error(
                 "Not connected to device %s", self._config_entry[CONF_FRIENDLY_NAME]
             )
+    
 
     @callback
     def status_updated(self, status):
