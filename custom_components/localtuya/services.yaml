@@ -13,3 +13,6 @@ set_dp:
     value:
       description: New value to set
       example: False
+
+update_energy:
+  description: Aktualisiert die Power
