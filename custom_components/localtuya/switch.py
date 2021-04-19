@@ -15,6 +15,7 @@ from .const import (
     CONF_CURRENT_CONSUMPTION,
     CONF_VOLTAGE,
 )
+from homeassistant.helpers import config_validation as cv, entity_platform, service
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -94,7 +95,20 @@ class LocaltuyaSwitch(LocalTuyaEntity, SwitchEntity):
         print("")
         print("Before %r" % data)
         print("After  %r" % data2)
-      
+     
+     async def async_setup_entry(hass, entry):
+    """Set up the media player platform for Sonos."""
+
+    platform = entity_platform.current_platform.get()
+
+    # This will call Entity.set_sleep_timer(sleep_time=VALUE)
+    platform.async_register_entity_service(
+        SERVICE_SET_TIMER,
+        {
+            vol.Required('sleep_time'): cv.time_period,
+        },
+        "set_sleep_timer",
+    ) 
 
     def status_updated(self):
         """Device status was updated."""
