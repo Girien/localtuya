@@ -95,8 +95,8 @@ class LocaltuyaSwitch(LocalTuyaEntity, SwitchEntity):
         print("")
         print("Before %r" % data)
         print("After  %r" % data2)
-     
-     async def async_setup_entry(DOMAIN, LocaltuyaSwitch):
+
+    async def async_setup_entry(DOMAIN, LocaltuyaSwitch):
     """Set up the media player platform for Sonos."""
 
     platform = entity_platform.current_platform.get()
