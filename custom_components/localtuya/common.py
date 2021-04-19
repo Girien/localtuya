@@ -17,7 +17,7 @@ from homeassistant.helpers.dispatcher import (
 )
 from homeassistant.helpers.restore_state import RestoreEntity
 
-import tinytuya
+from . import pytuya
 from .const import (
     CONF_LOCAL_KEY,
     CONF_PRODUCT_KEY,
@@ -103,8 +103,8 @@ def async_config_entry_by_device_id(hass, device_id):
     return None
 
 
-class TuyaDevice(tinytuya.TuyaListener, tinytuya.ContextualLogger):
-    """Cache wrapper for tinytuya.TuyaInterface."""
+class TuyaDevice(pytuya.TuyaListener, pytuya.ContextualLogger):
+    """Cache wrapper for pytuya.TuyaInterface."""
 
     def __init__(self, hass, config_entry):
         """Initialize the cache."""
@@ -136,7 +136,7 @@ class TuyaDevice(tinytuya.TuyaListener, tinytuya.ContextualLogger):
         self.debug("Connecting to %s", self._config_entry[CONF_HOST])
 
         try:
-            self._interface = await tinytuya.connect(
+            self._interface = await pytuya.connect(
                 self._config_entry[CONF_HOST],
                 self._config_entry[CONF_DEVICE_ID],
                 self._config_entry[CONF_LOCAL_KEY],
@@ -209,7 +209,7 @@ class TuyaDevice(tinytuya.TuyaListener, tinytuya.ContextualLogger):
         self.debug("Disconnected - waiting for discovery broadcast")
 
 
-class LocalTuyaEntity(RestoreEntity, tinytuya.ContextualLogger):
+class LocalTuyaEntity(RestoreEntity, pytuya.ContextualLogger):
     """Representation of a Tuya entity."""
 
     def __init__(self, device, config_entry, dp_id, logger, **kwargs):

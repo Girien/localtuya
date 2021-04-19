@@ -17,7 +17,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import callback
 
-from .common import async_config_entry_by_device_id, tinytuya
+from .common import async_config_entry_by_device_id, pytuya
 from .const import CONF_DPS_STRINGS  # pylint: disable=unused-import
 from .const import (
     CONF_LOCAL_KEY,
@@ -182,7 +182,7 @@ async def validate_input(hass: core.HomeAssistant, data):
 
     interface = None
     try:
-        interface = await tinytuya.connect(
+        interface = await pytuya.connect(
             data[CONF_HOST],
             data[CONF_DEVICE_ID],
             data[CONF_LOCAL_KEY],
